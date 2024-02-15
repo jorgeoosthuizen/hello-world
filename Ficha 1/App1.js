@@ -1,3 +1,4 @@
+/*
 console.log("Hello World");
 
 //Ex5
@@ -50,7 +51,7 @@ function multipleOf(value, limit) {
 
 multipleOf(3, 60)
 
-/*
+
 function addto(num) {
      for (var i = 1; i <= num; i++) {
           soma += i;
@@ -73,3 +74,38 @@ function fact(n) {
 console.log("Factorial de:" + n + "é:" + fact(4))
 
 */
+
+//Ex11
+
+array = [2, 8, 10, 7, 2]
+
+function getMax(array) {
+     var max = array[0];
+     for (var i = 1; i < array.length; i++) {
+          if (array[i] > max)
+               max = array[i];
+     }
+     return max;
+}
+
+function getMin(array) {
+     var min = array[0];
+     for (var i = 1; i < array.length; i++) {
+          if (array[i] < min)
+               min = array[i];
+     }
+     return min;
+}
+
+function getMean(array) {
+     for (var i = 0; i < array.length; i++) {
+          soma += array[i]
+          mean = soma/array.length
+     }
+     return mean;
+}
+
+
+console.log(getMax(array))
+console.log(getMin(array))
+console.log(getMean(array))
