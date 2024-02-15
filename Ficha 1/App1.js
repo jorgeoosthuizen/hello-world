@@ -97,15 +97,16 @@ function getMin(array) {
      return min;
 }
 
-function getMean(array) {
+function getAverage(array) {
+     var soma = 0;
      for (var i = 0; i < array.length; i++) {
-          soma += array[i]
-          mean = soma/array.length
+          soma += array[i];
+          average = soma / array.length;
      }
-     return mean;
+     return average;
 }
 
-
+var array = [2, 8, 10, 7, 2]
 console.log(getMax(array))
 console.log(getMin(array))
-console.log(getMean(array))
+console.log(getAverage(array))
