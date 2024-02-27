@@ -74,11 +74,25 @@ console.log("A frase " + sentence2 + " contém " + count + " vezes a letra " + l
 
 //Ex5
 
-function countWorkTime(inHour, outHour) {
-    var count = 0
-    // for()
-    return count
+function countWorkTime(he, me, se, hs, ms, ss) {
+    var totalSecEnt = he * 3600 + me * 60 + se;
+    var totalSecSaida = hs * 3600 + ms * 60 + ss;
+
+    var diff = totalSecSaida - totalSecEnt;
+
+    var horas_remainer = diff % 3600;
+    var horas = (diff - horas_remainer) / 3600;
+
+    var s = horas_remainer % 60;
+
+    var m = (horas_remainer - s) / 60;
+
+    console.log("Trabalhou: " + horas + " hora: " + m + " minutos: " + s + " segundos")
+
 }
+
+countWorkTime(8, 0, 0, 9, 30, 20)
+
 
 //console.log("Você trabalhou " + count + " horas") 
 
@@ -156,8 +170,8 @@ function getBestGrade(students) {
     return bestStudent;
 }
 
-bestGrade = getBestGrade(students)
-console.log("A melhor nota foi: " + bestGrade);
+bestStudent = getBestGrade(students)
+console.log("A melhor nota foi: " + bestStudent);
 
 function getWorstGrade(students) {
     var min = students[0].grade;
@@ -171,14 +185,56 @@ function getWorstGrade(students) {
 var worstGrade = getWorstGrade(students);
 console.log("A pior nota foi: " + worstGrade);
 
+
 function getAverage(students) {
     var soma = 0;
     for (var i = 0; i < students.length; i++) {
         soma += students[i].grade;
-        average = soma / students.length;
-    } 
-    return average
+    }
+    average = soma / students.length;
+    return average;
 }
 
+function closerToAverage(students) {
+    var avg = getAverage(students);
+    var minDiff = Number.POSITIVE_INFINITY;
+    var closest_student = students[0];
+    for (let i = 1; i < students.length; i++) {
+        var diff = Math.abs(avg - students[i].grade);
+        if (diff < minDiff) {
+            minDiff = diff;
+            closest_student = students[i];
+        }
+    }
+    return closest_student;
+}
+
+
+var averageStudent = closerToAverage(students);
 var average = getAverage(students);
-console.log("A média dos alunos foi: " + average);
+console.log("A média foi: " + average + " e o aluno foi: " + averageStudent.nAluno);
+
+
+function getNegativeGrades(students) {
+    var count = 0;
+    for (let i = 0; i < students.length; i++) {
+        if (students[i].grade < 10)
+        count++;
+    }
+    return count;
+}
+
+var negativas = getNegativeGrades(students);
+console.log("Houveram " + negativas + " negativas.")
+
+function getPositiveGrades(students) {
+    var count = 0;
+    for (let i = 0; i < students.length; i++) {
+        if (students[i].grade >= 10)
+            count++;
+    }
+    return count;
+}
+
+var positivas = getPositiveGrades(students);
+console.log("Houveram " + positivas + " positivas.")
