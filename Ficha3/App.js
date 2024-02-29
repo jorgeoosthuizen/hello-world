@@ -24,7 +24,7 @@ performDownload(started,update,completed);
 
 var arrayUtils = require('./ArrayUtils');
 
-var a1 = [1,2];
+var a1 = [3,4];
 var a2 =[2,1,6,77,9,6];
 var v = 2;
 
