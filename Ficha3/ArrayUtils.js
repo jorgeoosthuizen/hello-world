@@ -28,7 +28,7 @@ module.exports = {
         return average;
     },
     indexOf: function (array, value) {
-        for (let i = 0; i < array.length; i++) {
+        for (var i = 0; i < array.length; i++) {
             if (value == array[i])
                 return i;
         }
@@ -36,7 +36,7 @@ module.exports = {
     },
     subArray: function (array, startIndex, endIndex) {
         var subArray = [];
-        for (let i = startIndex; i <= endIndex; i++) {
+        for (var i = startIndex; i <= endIndex; i++) {
             subArray.push(array[i]);
         }
         return subArray;
@@ -46,7 +46,7 @@ module.exports = {
     },
     reverse: function (array) {
         var reverseArray = [];
-        for (let i = array.length - 1; i >= 0; i--) {
+        for (var i = array.length - 1; i >= 0; i--) {
             reverseArray.push(array[i]);
         }
         return reverseArray;
@@ -62,12 +62,12 @@ module.exports = {
     },
     concatenate: function (a1, a2) {
         var concatArray = [];
-        for (let i = 0; i < a1.length; i++) {
+        for (var i = 0; i < a1.length; i++) 
             concatArray.push(a1[i]);
-        }
-        for (let i = 0; i < a2.length; i++) {
+        
+        for (var i = 0; i < a2.length; i++) 
             concatArray.push(a2[i]);
-        }
+        
         return concatArray;
     }
 }
