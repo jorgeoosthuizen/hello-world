@@ -58,18 +58,18 @@ module.exports = {
         return array;
     },
     contains: function (array, value) {
-       return this.indexOf(array, value)!= -1;
+        return this.indexOf(array, value) != -1;
     },
     concatenate: function (a1, a2) {
-        var concatArray=[];
+        var concatArray = [];
         for (let i = 0; i < a1.length; i++) {
             concatArray.push(a1[i]);
         }
         for (let i = 0; i < a2.length; i++) {
             concatArray.push(a2[i]);
+        }
+        return concatArray;
     }
-    return concatArray;
-}
 }
 
 
