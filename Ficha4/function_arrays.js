@@ -2,16 +2,24 @@ var array =[];
 
 
 array.push(function() {
-    console.log("Hello World ")
+    console.log("Hello World 1")
 });
 
 array.push(function() {
-    console.log("1,2 ")
-});
-array.push(function() {
-    console.log("3")
+    console.log("Hello World 2")
 });
 
-for(i=0;i<array.length;i++){
-    console.log(array[i]());
+array.push(function() {
+    console.log("Hello World 3")
+});
+
+for(let i=0;i<array.length;i++){
+    array[i]();
 }
+
+array.forEach(element => {
+    element();
+});
+
+
+

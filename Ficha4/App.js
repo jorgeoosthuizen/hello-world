@@ -1,3 +1,4 @@
+/*
 var obj = {
     name:"Jorge",
     age:28,
@@ -7,3 +8,9 @@ var obj = {
 var jsonString = JSON.stringify(obj);
 
 var jsObj = JSON.parse(jsonString);
+
+*/
+
+var environments = require("./environments");
+
+environments.env.DEV1.password
