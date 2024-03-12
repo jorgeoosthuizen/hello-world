@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            Question:
+            <input type="text" v-model="question" v-bind:disabled="loading"/>  
+            {{tip}}
+        </div>
+        <div class="row">
+            <div class="column">
+                <h2>Answer</h2>
+                <p>{{result.answer}}</p>
+            </div>
+            <div class="column">
+                <h2>Forced?</h2>
+                {{result.forced}}
+            </div>
+            <div class="column">
+                <img v-bind:src=result.image>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3.2.31/dist/vue.global.js"></script>
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    question:"",
+                    loading: false,
+                    tip:"Please place a question with ?",
+                    result: 
+                    [
+                        {answer:"",forced:false,image:""}
+                    ]
+                }
+            },
+            watch:{
+                question(newQuestion,oldQuestion)
+                {
+                    this.tip="Please place a question with ?"
+                    newQuestion.includes("?") ? this.getAnswer() : null
+                }
+            },
+            methods: {
+               async getAnswer(){
+                    this.loading=true;
+                    this.tip="Calling the API..."
+                    try{
+                        const api=await fetch("https://yesno.wtf/api")
+                        const responde = await api.json()
+                        this.result={answer:responde.answer, forced:responde.forced,image:responde.image}
+                    }
+                    catch{
+                        this.result={answer:responde.answer, forced:responde.forced,image:responde.image}
+                    }
+                    finally{
+                        this.loading-false
+                        this.tip=""
+                    }
+               }
+            }
+        }).mount('#app')
+    </script>
+</body>
+
+
+<style>
+    *{
+        box-sizing: border-box;
+    }
+    .column{
+        float:left;
+        width:33,33%;
+        padding: 20px;
+        height: 300px;
+    }
+</style>
+</body>
+
+
+
+</html>
