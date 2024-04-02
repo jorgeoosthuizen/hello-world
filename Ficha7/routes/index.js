@@ -55,8 +55,7 @@ app.delete('/persons/:id', (req,res) => {
       console.error('Erro ao eliminar', error);
     }
     else{
-      const id = results[0].count + 1;
-      res.send(id);
+       
     }
   } )
 })
