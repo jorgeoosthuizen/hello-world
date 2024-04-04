@@ -20,8 +20,8 @@ var connection = mysql.createConnection({
   database: 'ficha7'
 });
 
-app.get('/persons', function(req, res, next) {
-  connection.query('SELECT * FROM `persons` ', function(error, results, fields) {
+app.get('/persons', function(req, res) {
+  connection.query('SELECT * FROM persons ', function(error, results, fields) {
     if (error) {
       console.error("Error fetching data: ", error);
     } else {
@@ -34,31 +34,78 @@ app.get('/persons', function(req, res, next) {
 
 app.post('/persons', (req, res) => {
   const { Firstname, Lastname, Profession, Age } = req.body; 
-  connection.query('SELECT COUNT(*) AS count FROM Persons', (error, results) => {
-    if (error) {
-      console.error('Erro ao executar a consulta:', error);
-    }
-    const id = results[0].count + 1;
-    connection.query('INSERT INTO Persons (ID, Firstname, Lastname, Profession, Age) VALUES (?, ?, ?, ?, ?)', [id, Firstname, Lastname, Profession, Age], (err, result) => {
-      if (err) {
+    connection.query('INSERT INTO persons (Firstname, Lastname, Profession, Age) VALUES ( ?, ?, ?, ?)',  [Firstname, Lastname, Profession, Age], (error, results) => {
+      if (error) {
         console.error('Erro ao adicionar pessoa:', error);
       }
-      res.send({ id });
+      else{
+        res.send(JSON.stringify(results.insertId));
+    }
     });
+  });
+
+
+
+app.delete('/persons', (req,res) => {
+  var id = req.body.id
+  var sql = 'DELETE FROM persons WHERE ID = ?';
+  connection.query(sql, [id], (error, results) =>{
+    if(error){
+      console.error('Erro ao eliminar, ID não existe.', error);
+    }
+    else{
+      res.send(JSON.stringify(results.affectedRows));
+    }
   });
 });
 
+
 app.delete('/persons/:id', (req,res) => {
   const id = req.params.id;
-  connection.query('DELETE FROM `Persons` WHERE `ID` = ?', [id], (error, results) =>{
+  connection.query('DELETE FROM persons WHERE ID = ?', [id], (error, results) =>{
     if(error){
       console.error('Erro ao eliminar', error);
     }
     else{
-       
+      res.send(JSON.stringify(results.affectedRows));
     }
   } )
 })
+
+app.get('/persons/:id', function(req, res) {
+  var id = req.params.id;
+  connection.query('SELECT * FROM persons WHERE ID = ? ',[id], function(error, results, fields) {
+    if (error) {
+      console.error("Error fetching data: ", error);
+    } else {
+      console.log("Results sent!");
+      res.json(results); 
+    }
+    
+  });
+});
+
+app.get('/persons/:age/:profession', function(req, res) {
+  var {profession, age} = req.params;
+  connection.query('SELECT * FROM persons WHERE Age = ? OR Profession = ?',[age, profession], function(error, results, fields) {
+    if (error) {
+      console.error("Error fetching data: ", error);
+    } else {
+      console.log("Results sent!");
+      res.json(results); 
+    }
+  });
+});
+
+app.put('/persons/:id', function(req,res){
+  var {Firstname,Lastname,Age,Profession} = req.body
+  var id = req.params.id;
+  connection.query('UPDATE persons SET (Firstname , Lastname ,  Profession  , Age ) VALUES (?,?,?,?) IF ID = ?' , [Firstname, Lastname,Age, Profession, id], function(error,results,fields){
+    if (error) {
+      console.error("Error fetching data: ", error);
+  })
+})
+
 
 
 
