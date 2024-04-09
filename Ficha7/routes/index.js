@@ -98,13 +98,16 @@ app.get('/persons/:age/:profession', function(req, res) {
 });
 
 app.put('/persons/:id', function(req,res){
-  var {Firstname,Lastname,Age,Profession} = req.body
+  var details = req.body
   var id = req.params.id;
-  connection.query('UPDATE persons SET (Firstname , Lastname ,  Profession  , Age ) VALUES (?,?,?,?) IF ID = ?' , [Firstname, Lastname,Age, Profession, id], function(error,results,fields){
+  connection.query('UPDATE persons SET (Firstname , Lastname ,  Profession  , Age ) VALUES (?,?,?,?) WHERE ID = ?' , [details.Firstname, details.Lastname,details.Age, details.Profession, id], function(error,results,fields){
     if (error) {
       console.error("Error fetching data: ", error);
-  })
+  }else{
+    res.send(results);
+  }
 })
+});
 
 
 
