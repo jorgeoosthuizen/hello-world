@@ -5,7 +5,12 @@ const app = express();
 const port = 3000;
 const fs = require('fs');
 
+const swaggerUi = require('swagger-ui-express');
+const swaggerFile = require('../swagger_output.json');
+
 app.use(express.json());
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

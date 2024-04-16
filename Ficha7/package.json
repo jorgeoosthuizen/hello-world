@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "test" : "echo \"Error: no test specified\" && exit 1",
+    "swagger-autogen" : "node swagger.js"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -13,6 +15,8 @@
     "jade": "^0.29.0",
     "morgan": "~1.9.1",
     "mysql2": "^3.9.3",
-    "start": "^5.1.0"
+    "start": "^5.1.0",
+    "swagger-autogen": "^2.23.7",
+    "swagger-ui-express": "^5.0.0"
   }
 }
