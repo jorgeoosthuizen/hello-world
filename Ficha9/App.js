@@ -84,10 +84,10 @@ app.post('/persons', (req, res) => {
 });
 
 app.delete('/persons', (req, res) => {
-    var deleteID = req.body
+    var deleteID = req.body.deleteID
     Person.destroy({
         where: {
-            id : deleteID
+            id: deleteID
         }
     })
         .then(result => {
@@ -98,7 +98,75 @@ app.delete('/persons', (req, res) => {
             }
         })
         .catch(err => {
-            console.error("Error deleting person:", err);
+            console.error("Error deleting person:", error);
             res.status(500).json({ error: "Internal server error" });
         });
-})
+});
+
+
+
+app.delete('/persons/person/:id', (req, res) => {
+    var deleteID = req.params.id
+    Person.destroy({
+        where: {
+            id: deleteID
+        }
+    })
+        .then(result => {
+            if (result === 0) {
+                return res.status(404).json({ error: "Person not found" });
+            } else {
+                res.status(200).json({ message: "Person deleted successfully" });
+            }
+        })
+        .catch(err => {
+            console.error("Error deleting person:", error);
+            res.status(500).json({ error: "Internal server error" });
+        });
+});
+
+
+app.get('/persons/person', (req, res) => {
+    var id = req.query.id
+    Person.findByPk(id).then(user => {
+        res.json(user);
+    }).catch(error => {
+        if (user == null) {
+            res.status(404).send("User not found!")
+        } else {
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    });
+});
+
+
+app.get("/persons/filter/", (req, res) => {
+    var { age, profession } = req.body
+    Person.findAll({
+        where: { Age: age, Profession: profession }
+    }).then(users => {
+        res.json(users)
+    }).catch(error => {
+        res.status(500).json({ error: 'Internal Server Error' })
+    })
+});
+
+app.put("/persons/update/:id", (req, res) => {
+    var selectID = req.params.id;
+    var values = req.body
+    Person.update({
+        Firstname: values.firstname,
+        Lastname: values.lastname,
+        Profession: values.profession,
+        Age: values.age
+    }, {
+        where: {
+            id: selectID
+        }
+    }).then(users =>{
+        Person.findByPk(id);
+        res.send(users);
+    }).catch(error =>{
+        res.status(500).json({error: 'Internal Server Error'});
+    });
+});
