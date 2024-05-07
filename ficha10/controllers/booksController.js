@@ -1,8 +1,10 @@
-const Books = require('../sequelize').Books;
+const Books = require('../sequelize').Book;
 
-exports.getAllBooks = function (request, response, next) {
-    return Books.findAll()
-        .then(books => {
-            response.send(books)
-        });
+exports.getAllBooks = async (request, response, next) => {
+    try {
+        const books = await Books.findAll();
+        response.send(books)
+    } catch (error) {
+        response.status(500).json(error);
+    };
 };

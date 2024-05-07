@@ -1,20 +1,21 @@
 module.exports = (sequelize,type) => {
-    return sequelize.define('Books', {
+    return sequelize.define('book', {
         book_id:{
             type: type.INTEGER,
             autoIncrement: true,
-            primaryKey:true
+            primaryKey:true,
+            allowNull: false
         },
         title:{
             type: type.STRING,
             allowNull: false
         },
         author_name:{
-            type: type.TEXT,
+            type: type.STRING,
             allowNull: false
         },
         publication_date:{
-            type: type.DATE,
+            type: type.DATEONLY,
             allowNull:false
         },
         genre:{
